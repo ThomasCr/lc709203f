@@ -42,7 +42,7 @@ works to retreive these 4 values. I have hard coded my battery config in setup r
 
 
 #### add stanza to yaml for RGB led
-```
+```yaml
 switch:
   - platform: gpio
     id: led_red
@@ -66,7 +66,7 @@ switch:
 
 
 #### add stanza to yaml for fuel gauge 
-```
+```yaml
 esphome:
   name: myname
   friendly_name: myname
