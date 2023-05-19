@@ -45,46 +45,52 @@ works to retreive these 4 values. I have hard coded my battery config in setup r
 ```
 switch:
   - platform: gpio
+    id: led_r
+    name: LED Red
     pin:
       number: GPIO16
       inverted: true
-    name: "${devicename} ledr"
-    id:  ${devicename}_ledr
   - platform: gpio
+    id: led_b
+    name: LED Green
     pin:
       number: GPIO17
       inverted: true
-    name: "${devicename} ledb"
-    id:  ${devicename}_ledb
   - platform: gpio
+    id: led_g
+    name: LED Blue
     pin:
       number: GPIO18
       inverted: true
-    name: "${devicename} ledg"
-    id:  ${devicename}_ledg
 ```
 
 
 #### add stanza to yaml for fuel gauge 
 ```
- - platform: lc709203f
-    address: "0x0B"
+esphome:
+  name: myname
+  friendly_name: myname
+  libraries:
+    - "Wire"
+i2c:
+  sda: 21
+  scl: 22
+  scan: true
+  id: bus_a    
+sensor:
+  - platform: lc709203f
     i2c_id: bus_a
+    address: "0x0B"
     battery_voltage:
-      name: "${devicename} battery V"
+      name: Battery Volt
     battery_level:
-      name: "${devicename} battery lvl"
+      name: Battery Level
     icversion:
-      name: "${devicename} ic"
+      name: IC
     cell_charge:
-      name: "${devicename} cell charge"
+      name: Cell charge
     update_interval: 30s
 ```
-
-
-
-
-
 
 #### TODO
 - accept config for setPowerMode, setCellCapacity, setCellProfile  ( to replace hard coded setup )
