@@ -33,12 +33,10 @@ captured with mosquitto_sub  -F "%I %t %p" -v -t ezmin/debug
 works to retreive these 4 values. I have hard coded my battery config in setup routine
 
 
-
 #### Required code changes:
 - revised [ESPHOME]/custom_components/lc709203f/lc709203f.h
 - revised [ESPHOME]/custom_components/lc709203f/lc709203f.cpp
 - revised [ESPHOME]/custom_components/lc709203f/sensor.py
-
 
 
 #### add stanza to yaml for RGB led
@@ -64,7 +62,6 @@ switch:
       inverted: true
 ```
 
-
 #### add stanza to yaml for fuel gauge 
 ```yaml
 esphome:
@@ -73,10 +70,8 @@ esphome:
   libraries:
     - "Wire"
 i2c:
-  sda: 21
-  scl: 22
-  scan: true
-  id: bus_a    
+  id: bus_a
+
 sensor:
   - platform: lc709203f
     i2c_id: bus_a
@@ -86,7 +81,7 @@ sensor:
     battery_level:
       name: Battery Level
     icversion:
-      name: IC
+      name: IC Version
     cell_charge:
       name: Cell charge
     update_interval: 30s
