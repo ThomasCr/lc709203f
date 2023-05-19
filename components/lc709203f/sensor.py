@@ -1,8 +1,15 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import i2c, sensor
-from esphome.const import CONF_ID,\
-    CONF_BATTERY_LEVEL, CONF_BATTERY_VOLTAGE, UNIT_VOLT, ICON_EMPTY, UNIT_PERCENT, UNIT_EMPTY
+from esphome.const import (
+    CONF_ID,
+    CONF_BATTERY_LEVEL,
+    CONF_BATTERY_VOLTAGE,
+    UNIT_VOLT,
+    ICON_EMPTY,
+    UNIT_PERCENT,
+    UNIT_EMPTY,
+)
 
 DEPENDENCIES = ['i2c']
 
@@ -12,35 +19,36 @@ lc709203f_ns = cg.esphome_ns.namespace('lc709203f')
 
 LC709203FComponent = lc709203f_ns.class_('LC709203FComponent', cg.PollingComponent, i2c.I2CDevice)
 
-CONFIG_SCHEMA = cv.Schema({
-    cv.GenerateID(): cv.declare_id(LC709203FComponent),
-    cv.Optional(CONF_BATTERY_VOLTAGE):
-        sensor.sensor_schema(
-            unit_of_measurement=UNIT_VOLT, 
-            accuracy_decimals=2,
-            icon=ICON_EMPTY, 
-        ),
-    cv.Optional(CONF_BATTERY_LEVEL):
-        sensor.sensor_schema(
-            unit_of_measurement=UNIT_PERCENT, 
-            accuracy_decimals=1,
-            icon=ICON_EMPTY, 
-        ),
-    cv.Optional('cell_charge'):
-        sensor.sensor_schema(
-            unit_of_measurement=UNIT_PERCENT, 
-            accuracy_decimals=0,
-            icon=ICON_EMPTY, 
-        ),
-    #cv.Optional('icversion'): cv.uint16_t,
-    cv.Optional('icversion'):
-        sensor.sensor_schema(
-            unit_of_measurement=UNIT_EMPTY, 
-            accuracy_decimals=0,
-            icon=ICON_EMPTY, 
-        ),
-
-}).extend(cv.polling_component_schema('60s')).extend(i2c.i2c_device_schema(0x77))
+CONFIG_SCHEMA = (
+    cv.Schema(
+        {
+            cv.GenerateID(): cv.declare_id(LC709203FComponent),
+            cv.Optional(CONF_BATTERY_VOLTAGE): sensor.sensor_schema(
+                unit_of_measurement=UNIT_VOLT,
+                accuracy_decimals=2,
+                icon=ICON_EMPTY,
+            ),
+            cv.Optional(CONF_BATTERY_LEVEL): sensor.sensor_schema(
+                unit_of_measurement=UNIT_PERCENT,
+                accuracy_decimals=1,
+                icon=ICON_EMPTY,
+            ),
+            cv.Optional('cell_charge'): sensor.sensor_schema(
+                unit_of_measurement=UNIT_PERCENT,
+                accuracy_decimals=0,
+                icon=ICON_EMPTY,
+            ),
+            #cv.Optional('icversion'): cv.uint16_t,
+            cv.Optional('icversion'): sensor.sensor_schema(
+                unit_of_measurement=UNIT_EMPTY,
+                accuracy_decimals=0,
+                icon=ICON_EMPTY,
+            ),
+        }
+    )
+    .extend(cv.polling_component_schema('60s'))
+    .extend(i2c.i2c_device_schema(0x77))
+)
 
 
 def to_code(config):
