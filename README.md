@@ -45,19 +45,19 @@ works to retreive these 4 values. I have hard coded my battery config in setup r
 ```
 switch:
   - platform: gpio
-    id: led_r
+    id: led_red
     name: LED Red
     pin:
       number: GPIO16
       inverted: true
   - platform: gpio
-    id: led_b
+    id: led_green
     name: LED Green
     pin:
       number: GPIO17
       inverted: true
   - platform: gpio
-    id: led_g
+    id: led_blue
     name: LED Blue
     pin:
       number: GPIO18
